@@ -536,3 +536,52 @@ canvas {
 .footer-link:hover::before {
   left: 100%;
 }
+
+/* Terminal styling */
+.terminal-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(10, 132, 255, 0.3) rgba(0, 0, 0, 0.1);
+}
+
+.terminal-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.terminal-scroll::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.terminal-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(10, 132, 255, 0.3);
+  border-radius: 3px;
+}
+
+.terminal-scanning {
+  animation: terminalBlink 1.5s infinite;
+}
+
+@keyframes terminalBlink {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Fix for the footer in the overall layout */
+section {
+  position: relative;
+  z-index: 2;
+}
+
+footer {
+  position: relative;
+  z-index: 2;
+}
+
+/* Section padding adjustments */
+.section {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}

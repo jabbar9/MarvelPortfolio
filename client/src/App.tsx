@@ -23,12 +23,13 @@ const App = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const { setBackgroundMusic, setHitSound, setSuccessSound } = useAudio();
 
-  // Initialize audio
+  // Initialize audio with Avengers audio
   useEffect(() => {
-    // Load background music
-    const bgMusic = new Audio("/sounds/background.mp3");
+    // Load Marvel Avengers themed background music
+    // Using Avengers Assemble audio as requested
+    const bgMusic = new Audio("/sounds/avengers.mp3");
     bgMusic.loop = true;
-    bgMusic.volume = 0.4;
+    bgMusic.volume = 0.5;
     setBackgroundMusic(bgMusic);
 
     // Load hit sound (for UI interactions)
@@ -157,29 +158,29 @@ const App = () => {
 
         <main
           ref={scrollContainerRef}
-          className="relative z-10 snap-y snap-mandatory overflow-y-auto h-screen hide-scrollbar"
+          className="relative z-10 overflow-x-hidden"
         >
-          <section id="hero" className="snap-start">
+          <section id="hero" className="min-h-screen">
             <HeroSection />
           </section>
 
-          <section id="skills" className="snap-start">
+          <section id="skills">
             <SkillsSection />
           </section>
 
-          <section id="projects" className="snap-start">
+          <section id="projects">
             <ProjectsSection />
           </section>
 
-          <section id="experience" className="snap-start">
+          <section id="experience">
             <ExperienceSection />
           </section>
 
-          <section id="about" className="snap-start">
+          <section id="about">
             <AboutSection />
           </section>
 
-          <section id="contact" className="snap-start">
+          <section id="contact">
             <ContactSection />
           </section>
           
@@ -188,21 +189,21 @@ const App = () => {
 
         <Loader 
           containerStyles={{
-            background: "linear-gradient(to bottom, #0D0D0D, #9E1B32, #0D0D0D)",
+            background: "black",
             zIndex: 100
           }}
           innerStyles={{
-            backgroundColor: "#F6BE00",
+            backgroundColor: "#0a84ff",
           }}
           barStyles={{
             backgroundColor: "#FFFFFF",
           }}
           dataStyles={{
             color: "#FFFFFF",
-            fontFamily: "Orbitron, sans-serif",
+            fontFamily: "monospace",
             fontSize: "14px"
           }}
-          dataInterpolation={(p) => `Loading Stark Industries OS ${p.toFixed(0)}%`}
+          dataInterpolation={(p) => `JARVIS OS LOADING ${p.toFixed(0)}%`}
         />
       </div>
     </>

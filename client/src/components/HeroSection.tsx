@@ -164,207 +164,264 @@ const HeroSection = () => {
       {/* Background particles */}
       <ParticleEffects count={80} />
       
-      <div className="w-full h-screen absolute inset-0 overflow-hidden z-10">
-        {/* Full screen 3D model background */}
-        <div className="absolute inset-0 w-full h-full">
-          <Canvas 
-            camera={{ position: [0, 0, 2.5], fov: 40 }} 
-            shadows
-            dpr={[1, 2]}
-            gl={{ 
-              antialias: true,
-              alpha: false,
-              powerPreference: 'high-performance'
-            }}
+      <div className="container mx-auto px-4 mt-16 md:mt-0 relative z-10 min-h-[80vh] flex flex-col lg:flex-row items-center justify-between">
+        {/* Left side - Text Content */}
+        <div className="w-full lg:w-1/2 text-center lg:text-left mb-10 lg:mb-0">
+          {/* Animated Welcome Circles */}
+          <div className="relative flex items-center justify-center lg:justify-start mb-4">
+            <WelcomeCircle delay={0} />
+            <WelcomeCircle delay={0.5} />
+            <WelcomeCircle delay={1} />
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 1 }}
+              className="relative z-10 bg-black/60 backdrop-blur-md px-3 py-2 rounded-md border border-[#0a84ff]/50 text-xs font-mono text-[#0a84ff]"
+            >
+              JARVIS SYSTEM INITIALIZED
+            </motion.div>
+          </div>
+          
+          <motion.h1 
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4"
           >
-            <color attach="background" args={["#000011"]} />
-            <fog attach="fog" args={['#000033', 7, 20]} />
-            <ambientLight intensity={0.3} />
-            <spotLight position={[5, 5, 5]} angle={0.3} penumbra={1} intensity={1} castShadow />
-            <pointLight position={[-5, 5, 5]} intensity={0.5} color="#0a84ff" />
+            <span className="text-white">Hi, I'm </span>
+            <span className="text-gradient">John Doe</span>
+          </motion.h1>
+          
+          <motion.p 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="text-xl md:text-2xl mb-8 text-gray-300 font-light"
+          >
+            Web Developer | UI/UX Enthusiast | Creative Technologist
+          </motion.p>
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4"
+          >
+            <button 
+              onClick={handleViewWork}
+              className="jarvis-button primary group w-full sm:w-auto py-3 px-8 flex items-center justify-center space-x-2"
+            >
+              <FileCode size={18} />
+              <span>View My Work</span>
+            </button>
             
-            <Suspense fallback={null}>
-              {/* Environment creates a more realistic scene with reflections */}
-              <Environment preset="night" />
-              
-              {/* The main 3D model - made much larger */}
-              <IronManModel scale={4.5} />
-              
-              {/* Interactive controls */}
-              <OrbitControls 
-                enableZoom={false}
-                enablePan={false}
-                minPolarAngle={Math.PI / 4}
-                maxPolarAngle={Math.PI / 1.8}
-                rotateSpeed={0.5}
-                dampingFactor={0.1}
-                enableDamping={true}
-              />
-              
-              {/* Background stars */}
-              <Stars radius={200} depth={100} count={5000} factor={6} fade speed={1} />
-            </Suspense>
-          </Canvas>
+            <button 
+              onClick={handleDownloadResume}
+              className="jarvis-button w-full sm:w-auto py-3 px-8 flex items-center justify-center space-x-2"
+            >
+              <Terminal size={18} />
+              <span>Download Resume</span>
+            </button>
+          </motion.div>
           
-          {/* Full screen grid overlay */}
-          <div className="absolute inset-0 bg-grid-pattern pointer-events-none opacity-30"></div>
+          {/* Terminal window with continuous text animation */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1 }}
+            className="mt-8 hidden lg:block max-w-[90%]"
+          >
+            <div className="hud-element p-4 relative overflow-hidden bg-black/80 border border-[#0a84ff]/60">
+              <div className="hud-corner hud-corner-tl"></div>
+              <div className="hud-corner hud-corner-tr"></div>
+              <div className="hud-corner hud-corner-bl"></div>
+              <div className="hud-corner hud-corner-br"></div>
+              
+              <div className="flex items-center mb-2 space-x-1">
+                <div className="w-3 h-3 rounded-full bg-red-500 opacity-70"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500 opacity-70"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500 opacity-70"></div>
+                <div className="flex-1 text-center text-xs text-white/70 font-mono">terminal@jarvis:~</div>
+              </div>
+              
+              <div className="h-36 overflow-auto terminal-scroll">
+                <div className="text-xs text-[#0a84ff] font-mono whitespace-pre-wrap">
+                  {terminalText}
+                  <div className="mt-2">
+                    <span className="text-green-400">➜</span> <span className="text-purple-400">~/projects</span> <span className="text-white">npm install react three fiber</span>
+                    <div className="text-gray-400 mt-1">Installing packages... Done</div>
+                  </div>
+                  <div className="mt-2">
+                    <span className="text-green-400">➜</span> <span className="text-purple-400">~/projects</span> <span className="text-white">git commit -m "feat: add 3D model integration"</span>
+                    <div className="text-gray-400 mt-1">[main 42f8b3d] feat: add 3D model integration</div>
+                  </div>
+                  <div className="mt-2">
+                    <span className="text-green-400">➜</span> <span className="text-purple-400">~/projects</span> <span className="text-white">scanning system...</span>
+                    <div className="text-[#0a84ff] mt-1 terminal-scanning">
+                      Analyzing components...<br/>
+                      Optimizing render pipeline...<br/>
+                      System ready.
+                    </div>
+                  </div>
+                  <div className="mt-2 flex">
+                    <span className="text-green-400">➜</span> <span className="text-purple-400">~/projects</span> <span className="text-white ml-1">_</span>
+                    <span className="inline-block w-2 h-4 bg-white/70 ml-1 animate-pulse"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
           
-          {/* Scanning animation overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0a84ff]/10 to-transparent pointer-events-none" style={{
-            animation: 'scan 4s ease-in-out infinite',
-            backgroundSize: '100% 5px',
-            zIndex: 10
-          }}></div>
-          
-          {/* Vignette effect */}
-          <div className="absolute inset-0 bg-gradient-radial from-transparent to-black/70 pointer-events-none"></div>
+          {/* Social links in futuristic style */}
+          <div className="flex space-x-2 mt-8 justify-center lg:justify-start">
+            <a 
+              href="https://github.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-black/70 border border-[#0a84ff]/50 text-[#0a84ff] hover:bg-[#0a84ff]/20 hover:border-[#0a84ff] transition-all duration-300 backdrop-blur-md"
+            >
+              <Github size={18} />
+            </a>
+            <a 
+              href="https://linkedin.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-black/70 border border-[#0a84ff]/50 text-[#0a84ff] hover:bg-[#0a84ff]/20 hover:border-[#0a84ff] transition-all duration-300 backdrop-blur-md"
+            >
+              <Linkedin size={18} />
+            </a>
+          </div>
         </div>
         
-        {/* Content overlay */}
-        <div className="container relative mx-auto px-4 flex flex-col lg:flex-row items-center z-20 h-full">
-          <div className="w-full lg:w-1/2 text-center lg:text-left pt-20 lg:pt-0">
-            {/* Animated Welcome Circles */}
-            <div className="relative flex items-center justify-center lg:justify-start mb-4">
-              <WelcomeCircle delay={0} />
-              <WelcomeCircle delay={0.5} />
-              <WelcomeCircle delay={1} />
+        {/* Right side - 3D Model */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.4 }}
+          className="w-full lg:w-1/2 h-[450px] md:h-[600px] relative"
+        >
+          {/* 3D model container with interactive framing */}
+          <div className="absolute inset-0 rounded-xl overflow-hidden hud-element border border-[#0a84ff]/50">
+            <div className="hud-corner hud-corner-tl"></div>
+            <div className="hud-corner hud-corner-tr"></div>
+            <div className="hud-corner hud-corner-bl"></div>
+            <div className="hud-corner hud-corner-br"></div>
+            
+            {/* The model canvas */}
+            <Canvas 
+              camera={{ position: [0, 0, 3], fov: 45 }} 
+              shadows
+              dpr={[1, 2]}
+              gl={{ 
+                antialias: true,
+                alpha: true,
+                powerPreference: 'high-performance'
+              }}
+              className="touch-auto"
+            >
+              <color attach="background" args={["#000011"]} />
+              <fog attach="fog" args={['#000033', 5, 15]} />
+              <ambientLight intensity={0.3} />
+              <spotLight position={[5, 5, 5]} angle={0.3} penumbra={1} intensity={1} castShadow />
+              <pointLight position={[-5, 5, 5]} intensity={0.5} color="#0a84ff" />
+              
+              <Suspense fallback={null}>
+                {/* Environment creates a more realistic scene with reflections */}
+                <Environment preset="night" />
+                
+                {/* The main 3D model */}
+                <IronManModel scale={3} />
+                
+                {/* Floor shadow */}
+                <ContactShadows
+                  opacity={0.4}
+                  scale={5}
+                  blur={2.5}
+                  far={2}
+                  resolution={256}
+                  color="#0a84ff"
+                />
+                
+                {/* Interactive controls */}
+                <OrbitControls 
+                  enableZoom={true}
+                  maxZoom={1.5}
+                  minZoom={0.8}
+                  enablePan={false}
+                  minPolarAngle={Math.PI / 6}
+                  maxPolarAngle={Math.PI / 1.5}
+                  rotateSpeed={0.5}
+                  dampingFactor={0.1}
+                  enableDamping={true}
+                  autoRotate={false}
+                />
+                
+                {/* Background stars */}
+                <Stars radius={100} depth={50} count={2000} factor={4} fade speed={1} />
+              </Suspense>
+            </Canvas>
+            
+            {/* Overlay effects */}
+            <div className="absolute inset-0 bg-grid-pattern pointer-events-none opacity-20"></div>
+            <div className="absolute inset-0 pointer-events-none" style={{
+              background: 'radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.4) 100%)'
+            }}></div>
+            
+            {/* Scanning effect */}
+            <div className="absolute inset-0 pointer-events-none">
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1, delay: 1 }}
-                className="relative z-10 bg-black/60 backdrop-blur-md px-3 py-2 rounded-md border border-[#0a84ff]/50 text-xs font-mono text-[#0a84ff]"
-              >
-                JARVIS SYSTEM INITIALIZED
-              </motion.div>
+                className="absolute inset-x-0 h-[2px] bg-[#0a84ff]/40"
+                animate={{ top: ['-10%', '110%'] }}
+                transition={{ 
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  repeatType: "loop"
+                }}
+              />
             </div>
             
-            <motion.h1 
-              initial={{ opacity: 0, y: -50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4"
-            >
-              <span className="text-white">Hi, I'm </span>
-              <span className="text-gradient">John Doe</span>
-            </motion.h1>
+            {/* Status and controls */}
+            <div className="absolute top-4 right-4 hud-element px-3 py-1 text-xs backdrop-blur-sm">
+              <div className="flex items-center space-x-2">
+                <Cpu size={12} className="text-[#0a84ff]" />
+                <span className="text-[#0a84ff]">MODEL: MARK 42</span>
+              </div>
+            </div>
             
-            <motion.p 
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-xl md:text-2xl mb-8 text-gray-300 font-light"
-            >
-              Web Developer | UI/UX Enthusiast | Creative Technologist
-            </motion.p>
+            <div className="absolute bottom-4 left-4 hud-element px-3 py-1 text-xs backdrop-blur-sm">
+              <div className="flex items-center space-x-2">
+                <Database size={12} className="text-[#0a84ff]" />
+                <span className="text-[#0a84ff]">DRAG TO ROTATE MODEL</span>
+              </div>
+            </div>
             
+            <div className="absolute top-4 left-4 px-2 py-1 bg-black/40 backdrop-blur-sm rounded border border-[#0a84ff]/20 text-xs font-mono text-[#0a84ff]/80">
+              {currentTime.toLocaleTimeString('en-US', { hour12: false })}
+            </div>
+            
+            {/* Interactive hint tooltip */}
             <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4"
+              initial={{ opacity: 0 }}
+              animate={{ 
+                opacity: [0, 1, 1, 0],
+                y: [0, -5, -5, 0]
+              }}
+              transition={{ 
+                duration: 3,
+                times: [0, 0.3, 0.7, 1],
+                repeat: 2,
+                delay: 1
+              }}
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 px-4 py-2 text-sm text-white bg-[#0a84ff]/20 backdrop-blur-md border border-[#0a84ff]/50 rounded-md pointer-events-none z-10"
             >
-              <button 
-                onClick={handleViewWork}
-                className="jarvis-button primary group w-full sm:w-auto py-3 px-8 flex items-center justify-center space-x-2"
-              >
-                <FileCode size={18} />
-                <span>View My Work</span>
-              </button>
-              
-              <button 
-                onClick={handleDownloadResume}
-                className="jarvis-button w-full sm:w-auto py-3 px-8 flex items-center justify-center space-x-2"
-              >
-                <Terminal size={18} />
-                <span>Download Resume</span>
-              </button>
-            </motion.div>
-            
-            {/* Terminal window */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1 }}
-              className="mt-8 hidden lg:block"
-            >
-              <div className="hud-element p-4 relative overflow-hidden bg-black/80 border-[#0a84ff]/60">
-                <div className="hud-corner hud-corner-tl"></div>
-                <div className="hud-corner hud-corner-tr"></div>
-                <div className="hud-corner hud-corner-bl"></div>
-                <div className="hud-corner hud-corner-br"></div>
-                
-                <div className="flex items-center mb-2 space-x-1">
-                  <div className="w-3 h-3 rounded-full bg-red-500 opacity-70"></div>
-                  <div className="w-3 h-3 rounded-full bg-yellow-500 opacity-70"></div>
-                  <div className="w-3 h-3 rounded-full bg-green-500 opacity-70"></div>
-                  <div className="flex-1 text-center text-xs text-white/70 font-mono">terminal</div>
-                </div>
-                
-                <pre className="text-xs text-[#0a84ff] font-mono whitespace-pre-wrap">
-                  {terminalText}
-                  <span className="inline-block w-2 h-4 bg-white/70 ml-1 animate-pulse"></span>
-                </pre>
+              <div className="flex items-center space-x-2">
+                <span className="text-[#0a84ff]">↖</span>
+                <span className="font-mono">Click and drag to interact</span>
+                <span className="text-[#0a84ff]">↗</span>
               </div>
             </motion.div>
           </div>
-        </div>
-        
-        {/* HUD elements overlaying the 3D model */}
-        <div className="absolute top-5 right-5 hud-element px-3 py-1 text-xs z-20 backdrop-blur-md">
-          <div className="hud-corner hud-corner-tl"></div>
-          <div className="hud-corner hud-corner-tr"></div>
-          <div className="hud-corner hud-corner-bl"></div>
-          <div className="hud-corner hud-corner-br"></div>
-          <div className="flex items-center space-x-2">
-            <Cpu size={12} className="text-[#0a84ff]" />
-            <span className="text-[#0a84ff]">MODEL: MARK 42</span>
-          </div>
-        </div>
-        
-        <div className="absolute bottom-5 left-5 hud-element px-3 py-1 text-xs z-20 backdrop-blur-md">
-          <div className="hud-corner hud-corner-tl"></div>
-          <div className="hud-corner hud-corner-tr"></div>
-          <div className="hud-corner hud-corner-bl"></div>
-          <div className="hud-corner hud-corner-br"></div>
-          <div className="flex items-center space-x-2">
-            <Database size={12} className="text-[#0a84ff]" />
-            <span className="text-[#0a84ff]">DRAG TO INTERACT</span>
-          </div>
-        </div>
-        
-        {/* Social links in futuristic style */}
-        <div className="absolute top-5 left-5 flex space-x-2 z-20">
-          <a 
-            href="https://github.com" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="w-10 h-10 flex items-center justify-center rounded-full bg-black/70 border border-[#0a84ff]/50 text-[#0a84ff] hover:bg-[#0a84ff]/20 hover:border-[#0a84ff] transition-all duration-300 backdrop-blur-md"
-          >
-            <Github size={18} />
-          </a>
-          <a 
-            href="https://linkedin.com" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="w-10 h-10 flex items-center justify-center rounded-full bg-black/70 border border-[#0a84ff]/50 text-[#0a84ff] hover:bg-[#0a84ff]/20 hover:border-[#0a84ff] transition-all duration-300 backdrop-blur-md"
-          >
-            <Linkedin size={18} />
-          </a>
-        </div>
-        
-        <div className="absolute bottom-5 right-5 px-3 py-2 bg-black/70 backdrop-blur-md rounded border border-[#0a84ff]/50 text-xs font-mono text-[#0a84ff]/80 z-20">
-          {currentTime.toLocaleTimeString('en-US', { hour12: false })}
-        </div>
-        
-        {/* Interactive hint */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 1 }}
-          className="absolute left-1/2 top-2/3 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap px-4 py-2 text-sm text-[#0a84ff] font-mono bg-black/70 backdrop-blur-md border border-[#0a84ff]/50 rounded-full z-20 pointer-events-none"
-          style={{ animationName: 'fadeInOut', animationDuration: '3s', animationIterationCount: 2 }}
-        >
-          Click and drag to interact with Iron Man
         </motion.div>
       </div>
       
