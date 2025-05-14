@@ -4,38 +4,39 @@
 
 @layer base {
   :root {
-    --background: 0 0% 5%; /* #0D0D0D */
+    --background: 0 0% 0%; /* #000000 - Darker for Jarvis UI */
     --foreground: 0 0% 100%; /* #FFFFFF */
     
     --marvel-red: 347 70% 37%; /* #9E1B32 */
     --marvel-gold: 47 100% 50%; /* #F6BE00 */
+    --jarvis-blue: 211 100% 50%; /* #0a84ff - Tony Stark's interface blue */
     
-    --card: 0 0% 5%;
+    --card: 0 0% 0%;
     --card-foreground: 0 0% 100%;
     
-    --popover: 0 0% 5%;
+    --popover: 0 0% 0%;
     --popover-foreground: 0 0% 100%;
     
-    --primary: 347 70% 37%;
+    --primary: 211 100% 50%; /* Changed to Jarvis blue */
     --primary-foreground: 0 0% 100%;
     
     --secondary: 47 100% 50%;
     --secondary-foreground: 0 0% 5%;
     
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 65%;
+    --muted: 210 40% 10%;
+    --muted-foreground: 210 40% 70%;
     
-    --accent: 47 100% 50%;
-    --accent-foreground: 0 0% 5%;
+    --accent: 211 100% 50%;
+    --accent-foreground: 0 0% 100%;
     
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
-    --ring: 347 70% 37%;
+    --border: 210 40% 20%;
+    --input: 210 40% 20%;
+    --ring: 211 100% 50%;
     
-    --radius: 0.5rem;
+    --radius: 0.25rem;
   }
   
   * {
@@ -63,23 +64,94 @@ html {
 .hero-gradient {
   background: linear-gradient(
     to bottom,
-    rgba(13, 13, 13, 1) 0%,
-    rgba(158, 27, 50, 0.3) 50%,
-    rgba(13, 13, 13, 1) 100%
+    rgba(0, 0, 0, 1) 0%,
+    rgba(10, 132, 255, 0.1) 50%,
+    rgba(0, 0, 0, 1) 100%
   );
 }
 
 .text-gradient {
-  background: linear-gradient(90deg, #9E1B32, #F6BE00);
+  background: linear-gradient(90deg, #0a84ff, #5ac8fa);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-fill-color: transparent;
 }
 
+/* Tony Stark's futuristic buttons */
+.jarvis-button {
+  position: relative;
+  background-color: rgba(10, 132, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(10, 132, 255, 0.3);
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 1px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.jarvis-button:hover {
+  background-color: rgba(10, 132, 255, 0.2);
+  border-color: rgba(10, 132, 255, 0.8);
+  box-shadow: 0 0 15px rgba(10, 132, 255, 0.3);
+}
+
+.jarvis-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(10, 132, 255, 0.3),
+    transparent
+  );
+  transition: all 0.5s ease;
+}
+
+.jarvis-button:hover::before {
+  left: 100%;
+}
+
+.jarvis-button.primary {
+  background-color: rgba(10, 132, 255, 0.2);
+  border-color: rgba(10, 132, 255, 0.5);
+}
+
+.jarvis-button.primary:hover {
+  background-color: rgba(10, 132, 255, 0.3);
+}
+
+/* Jarvis system scanning effect */
+.jarvis-scan {
+  position: relative;
+  overflow: hidden;
+}
+
+.jarvis-scan::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(10, 132, 255, 0.15),
+    transparent
+  );
+  animation: jarvisScan 3s ease-in-out infinite;
+}
+
 .hud-border {
   position: relative;
-  border: 2px solid #F6BE00;
+  border: 2px solid #0a84ff;
   border-radius: 4px;
   padding: 1px;
   overflow: hidden;
@@ -92,7 +164,7 @@ html {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(246, 190, 0, 0.4), transparent);
+  background: linear-gradient(90deg, transparent, rgba(10, 132, 255, 0.4), transparent);
   animation: hud-scan 2s infinite;
 }
 
@@ -118,7 +190,7 @@ html {
   left: 0;
   width: 100%;
   height: 2px;
-  background: #F6BE00;
+  background: #0a84ff;
   animation: jarvis-scan 3s infinite;
 }
 
@@ -128,6 +200,15 @@ html {
   }
   100% {
     transform: translateY(1000%);
+  }
+}
+
+@keyframes jarvisScan {
+  0%, 100% {
+    top: -100%;
+  }
+  50% {
+    top: 100%;
   }
 }
 
@@ -201,26 +282,26 @@ canvas {
   z-index: 1000;
 }
 
-/* HUD Elements */
+/* HUD Elements - Updated for Jarvis UI */
 .hud-element {
   position: relative;
-  border: 1px solid rgba(246, 190, 0, 0.5);
+  border: 1px solid rgba(10, 132, 255, 0.3);
   border-radius: 4px;
-  background-color: rgba(13, 13, 13, 0.8);
+  background-color: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(5px);
   transition: all 0.3s ease;
 }
 
 .hud-element:hover {
-  border-color: #F6BE00;
-  box-shadow: 0 0 15px rgba(246, 190, 0, 0.5);
+  border-color: #0a84ff;
+  box-shadow: 0 0 15px rgba(10, 132, 255, 0.3);
 }
 
 .hud-corner {
   position: absolute;
   width: 10px;
   height: 10px;
-  border-color: #F6BE00;
+  border-color: #0a84ff;
 }
 
 .hud-corner-tl {
@@ -249,4 +330,42 @@ canvas {
   right: 0;
   border-bottom: 2px solid;
   border-right: 2px solid;
+}
+
+/* Jarvis UI Analytics-like grid */
+.jarvis-grid {
+  display: grid;
+  position: relative;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1px;
+}
+
+.jarvis-grid::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 20px,
+    rgba(10, 132, 255, 0.05) 20px,
+    rgba(10, 132, 255, 0.05) 21px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.jarvis-grid::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 20px,
+    rgba(10, 132, 255, 0.05) 20px,
+    rgba(10, 132, 255, 0.05) 21px
+  );
+  pointer-events: none;
+  z-index: 0;
 }
