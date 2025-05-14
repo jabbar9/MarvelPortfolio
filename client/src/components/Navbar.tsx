@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAudio } from "../lib/stores/useAudio";
-import { Menu, X, Volume2, VolumeX, Home, FolderOpen, User, Send, Shield } from "lucide-react";
+import { Menu, X, Volume2, VolumeX, Home, FolderOpen, User, Send, Shield, Github, Linkedin } from "lucide-react";
 
 // Simplified navigation links as requested
 const navLinks = [
@@ -93,7 +93,7 @@ const Navbar = () => {
 
             {/* Desktop menu */}
             <div className="hidden md:block">
-              <div className="ml-10 flex items-center space-x-1">
+              <div className="ml-10 flex items-center space-x-2">
                 {navLinks.map((link) => (
                   <a
                     key={link.href}
@@ -106,6 +106,32 @@ const Navbar = () => {
                     <span className="absolute bottom-0 left-0 w-full h-[1px] bg-[#0a84ff]/50 transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></span>
                   </a>
                 ))}
+                
+                {/* Social media links */}
+                <div className="h-5 w-[1px] bg-[#0a84ff]/30 mx-2"></div>
+                
+                <a 
+                  href="https://github.com" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center h-8 w-8 text-white hover:text-[#0a84ff] transition-colors duration-300 border border-transparent hover:border-[#0a84ff]/30 rounded-full bg-[#0a84ff]/10"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <Github size={16} />
+                </a>
+                
+                <a 
+                  href="https://linkedin.com" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center h-8 w-8 text-white hover:text-[#0a84ff] transition-colors duration-300 border border-transparent hover:border-[#0a84ff]/30 rounded-full bg-[#0a84ff]/10"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <Linkedin size={16} />
+                </a>
+                
+                <div className="h-5 w-[1px] bg-[#0a84ff]/30 mx-2"></div>
+                
                 <button
                   onClick={handleStartMusic}
                   className="text-white hover:text-[#0a84ff] p-2 rounded-full transition-colors duration-300 border border-transparent hover:border-[#0a84ff]/30"
@@ -167,6 +193,29 @@ const Navbar = () => {
                   <span>{link.label}</span>
                 </a>
               ))}
+            </div>
+            
+            {/* Social links */}
+            <div className="px-4 py-3 border-t border-[#0a84ff]/20 flex items-center justify-center space-x-4">
+              <a 
+                href="https://github.com" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center h-10 w-10 text-white hover:text-[#0a84ff] transition-colors duration-300 border border-[#0a84ff]/30 hover:border-[#0a84ff] rounded-full bg-[#0a84ff]/10"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Github size={20} />
+              </a>
+              
+              <a 
+                href="https://linkedin.com" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center h-10 w-10 text-white hover:text-[#0a84ff] transition-colors duration-300 border border-[#0a84ff]/30 hover:border-[#0a84ff] rounded-full bg-[#0a84ff]/10"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Linkedin size={20} />
+              </a>
             </div>
             
             {/* Mobile Jarvis status */}
