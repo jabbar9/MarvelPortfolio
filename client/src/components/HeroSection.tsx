@@ -138,10 +138,29 @@ const HeroSection = () => {
     document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Simulate typing terminal text
+  // Terminal state variables
   const [terminalText, setTerminalText] = useState('');
+  const [isLoadingPackages, setIsLoadingPackages] = useState(false);
+  const [loadedPackages, setLoadedPackages] = useState<string[]>([]);
+  const [loadingPercentage, setLoadingPercentage] = useState(0);
+  
   const fullText = '> Initializing personal frontend developer skillset\n> Loading React.js components... done\n> Loading Three.js engine... done\n> Loading UI/UX design skills... done\n> System ready';
   
+  // List of packages for simulated npm install
+  const packagesToInstall = [
+    'react-three-fiber', 
+    'three', 
+    'framer-motion', 
+    'tailwindcss', 
+    'gsap', 
+    'typescript',
+    'drei',
+    'zustand',
+    'react-query',
+    'vitejs'
+  ];
+  
+  // Initial typing animation
   useEffect(() => {
     let index = 0;
     const intervalId = setInterval(() => {
@@ -150,11 +169,38 @@ const HeroSection = () => {
         index++;
       } else {
         clearInterval(intervalId);
+        // Start package loading animation after initial text is done
+        setIsLoadingPackages(true);
       }
-    }, 50);
+    }, 30);
     
     return () => clearInterval(intervalId);
   }, []);
+  
+  // Continuous package loading animation
+  useEffect(() => {
+    if (!isLoadingPackages) return;
+    
+    let packageIndex = 0;
+    let percentage = 0;
+    
+    const intervalId = setInterval(() => {
+      if (packageIndex < packagesToInstall.length) {
+        // Add next package
+        setLoadedPackages(prev => [...prev, packagesToInstall[packageIndex]]);
+        packageIndex++;
+        percentage = Math.floor((packageIndex / packagesToInstall.length) * 100);
+        setLoadingPercentage(percentage);
+      } else {
+        // Reset to start over with loading animation
+        setLoadedPackages([]);
+        packageIndex = 0;
+        setLoadingPercentage(0);
+      }
+    }, 800);
+    
+    return () => clearInterval(intervalId);
+  }, [isLoadingPackages]);
 
   return (
     <div 
@@ -244,18 +290,65 @@ const HeroSection = () => {
                 <div className="flex-1 text-center text-xs text-white/70 font-mono">terminal@jarvis:~</div>
               </div>
               
-              <div className="h-36 overflow-auto terminal-scroll">
+              <div className="h-48 overflow-auto terminal-scroll">
                 <div className="text-xs text-[#0a84ff] font-mono whitespace-pre-wrap">
+                  {/* Initial system messages */}
                   {terminalText}
-                  <div className="mt-2">
-                    <span className="text-green-400">➜</span> <span className="text-purple-400">~/projects</span> <span className="text-white">npm install react three fiber</span>
-                    <div className="text-gray-400 mt-1">Installing packages... Done</div>
-                  </div>
-                  <div className="mt-2">
+                  
+                  {/* Command prompt after initialization */}
+                  {terminalText.length === fullText.length && (
+                    <div className="mt-3">
+                      <span className="text-green-400">➜</span> <span className="text-purple-400">~/projects</span> <span className="text-white">npm install --save-dev</span>
+                      
+                      {/* Package loading simulation */}
+                      {isLoadingPackages && (
+                        <div className="mt-1">
+                          <div className="text-gray-400 mb-1">
+                            Installing packages... {loadingPercentage}%
+                          </div>
+                          
+                          {/* Progress bar */}
+                          <div className="w-full h-1 bg-gray-800 rounded-full mt-1 mb-2">
+                            <div 
+                              className="h-full bg-[#0a84ff] rounded-full"
+                              style={{ width: `${loadingPercentage}%`, transition: 'width 0.3s ease' }}
+                            ></div>
+                          </div>
+                          
+                          {/* Package list with animations */}
+                          <div className="grid grid-cols-2 gap-x-2">
+                            {loadedPackages.map((pkg, idx) => (
+                              <div key={`${pkg}-${idx}`} className="text-green-400 flex items-center">
+                                <span className="text-xs mr-1">✓</span> {pkg}
+                              </div>
+                            ))}
+                            
+                            {/* Current loading package with blinking animation */}
+                            {loadedPackages.length < packagesToInstall.length && (
+                              <div className="text-yellow-400 animate-pulse flex items-center">
+                                <span className="text-xs mr-1">⟳</span> {packagesToInstall[loadedPackages.length]}
+                              </div>
+                            )}
+                          </div>
+                          
+                          {loadedPackages.length === packagesToInstall.length && (
+                            <div className="text-green-400 mt-1">
+                              All packages installed successfully!
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  
+                  {/* Git operations */}
+                  <div className="mt-3">
                     <span className="text-green-400">➜</span> <span className="text-purple-400">~/projects</span> <span className="text-white">git commit -m "feat: add 3D model integration"</span>
                     <div className="text-gray-400 mt-1">[main 42f8b3d] feat: add 3D model integration</div>
                   </div>
-                  <div className="mt-2">
+                  
+                  {/* System scanning */}
+                  <div className="mt-3">
                     <span className="text-green-400">➜</span> <span className="text-purple-400">~/projects</span> <span className="text-white">scanning system...</span>
                     <div className="text-[#0a84ff] mt-1 terminal-scanning">
                       Analyzing components...<br/>
@@ -263,7 +356,9 @@ const HeroSection = () => {
                       System ready.
                     </div>
                   </div>
-                  <div className="mt-2 flex">
+                  
+                  {/* Command prompt */}
+                  <div className="mt-3 flex items-center">
                     <span className="text-green-400">➜</span> <span className="text-purple-400">~/projects</span> <span className="text-white ml-1">_</span>
                     <span className="inline-block w-2 h-4 bg-white/70 ml-1 animate-pulse"></span>
                   </div>
@@ -293,12 +388,12 @@ const HeroSection = () => {
           </div>
         </div>
         
-        {/* Right side - 3D Model */}
+        {/* Right side - 3D Model - larger container */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.4 }}
-          className="w-full lg:w-1/2 h-[450px] md:h-[600px] relative"
+          className="w-full lg:w-5/8 h-[500px] md:h-[700px] relative"
         >
           {/* 3D model container with interactive framing */}
           <div className="absolute inset-0 rounded-xl overflow-hidden hud-element border border-[#0a84ff]/50">
@@ -329,8 +424,8 @@ const HeroSection = () => {
                 {/* Environment creates a more realistic scene with reflections */}
                 <Environment preset="night" />
                 
-                {/* The main 3D model */}
-                <IronManModel scale={3} />
+                {/* The main 3D model - bigger scale */}
+                <IronManModel scale={4} />
                 
                 {/* Floor shadow */}
                 <ContactShadows
@@ -389,10 +484,10 @@ const HeroSection = () => {
               </div>
             </div>
             
-            <div className="absolute bottom-4 left-4 hud-element px-3 py-1 text-xs backdrop-blur-sm">
-              <div className="flex items-center space-x-2">
-                <Database size={12} className="text-[#0a84ff]" />
-                <span className="text-[#0a84ff]">DRAG TO ROTATE MODEL</span>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hud-element px-4 py-2 text-base backdrop-blur-md border-2 border-[#0a84ff]/70 z-10">
+              <div className="flex items-center space-x-3">
+                <Database size={20} className="text-[#0a84ff]" />
+                <span className="text-[#0a84ff] font-bold tracking-wide">DRAG TO ROTATE MODEL</span>
               </div>
             </div>
             
