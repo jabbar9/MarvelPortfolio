@@ -81,21 +81,35 @@ html {
 /* Tony Stark's futuristic buttons */
 .jarvis-button {
   position: relative;
-  background-color: rgba(10, 132, 255, 0.1);
+  background-color: rgba(0, 0, 0, 0.6);
   color: #ffffff;
   border: 1px solid rgba(10, 132, 255, 0.3);
   border-radius: 4px;
-  padding: 10px 20px;
+  padding: 12px 24px;
   font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
   letter-spacing: 1px;
   overflow: hidden;
   transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+  text-transform: uppercase;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2),
+              inset 0 0 5px rgba(10, 132, 255, 0.1);
 }
 
 .jarvis-button:hover {
-  background-color: rgba(10, 132, 255, 0.2);
+  background-color: rgba(10, 132, 255, 0.15);
   border-color: rgba(10, 132, 255, 0.8);
-  box-shadow: 0 0 15px rgba(10, 132, 255, 0.3);
+  box-shadow: 0 0 20px rgba(10, 132, 255, 0.4),
+              inset 0 0 10px rgba(10, 132, 255, 0.2);
+  transform: translateY(-1px);
+  color: #ffffff;
+}
+
+.jarvis-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 0 5px rgba(10, 132, 255, 0.2);
 }
 
 .jarvis-button::before {
@@ -103,28 +117,49 @@ html {
   position: absolute;
   top: 0;
   left: -100%;
-  width: 100%;
+  width: 40%;
   height: 100%;
   background: linear-gradient(
     to right,
     transparent,
-    rgba(10, 132, 255, 0.3),
+    rgba(10, 132, 255, 0.5),
     transparent
   );
-  transition: all 0.5s ease;
+  transform: skewX(-25deg);
+  transition: all 0.7s ease;
 }
 
 .jarvis-button:hover::before {
-  left: 100%;
+  left: 150%;
 }
 
 .jarvis-button.primary {
-  background-color: rgba(10, 132, 255, 0.2);
-  border-color: rgba(10, 132, 255, 0.5);
+  background-color: rgba(10, 132, 255, 0.15);
+  border-color: rgba(10, 132, 255, 0.6);
+  box-shadow: 0 0 15px rgba(10, 132, 255, 0.3),
+              inset 0 0 7px rgba(10, 132, 255, 0.2);
 }
 
 .jarvis-button.primary:hover {
-  background-color: rgba(10, 132, 255, 0.3);
+  background-color: rgba(10, 132, 255, 0.25);
+  box-shadow: 0 0 25px rgba(10, 132, 255, 0.5),
+              inset 0 0 15px rgba(10, 132, 255, 0.3);
+}
+
+/* Animated corner borders for buttons */
+.jarvis-button::after {
+  content: "";
+  position: absolute;
+  height: 4px;
+  width: 10px;
+  background: #0a84ff;
+  top: -1px;
+  left: -1px;
+  transition: all 0.3s ease;
+}
+
+.jarvis-button:hover::after {
+  width: 100%;
 }
 
 /* Jarvis system scanning effect */
@@ -210,6 +245,51 @@ html {
   50% {
     top: 100%;
   }
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes fadeInOut {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes targetPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(rgba(10, 132, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10, 132, 255, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
 }
 
 .section {

@@ -1,16 +1,31 @@
 import { Suspense, useRef, useState, useEffect } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { motion } from "framer-motion";
 import { useAudio } from "../lib/stores/useAudio";
-import { OrbitControls, Stars, Text, useGLTF } from "@react-three/drei";
+import { 
+  OrbitControls, 
+  Stars, 
+  Text, 
+  useGLTF, 
+  Environment, 
+  ContactShadows,
+  Float
+} from "@react-three/drei";
 import ParticleEffects from "./ParticleEffects";
 import * as THREE from "three";
-import { ChevronDown, Cpu, Database, FileCode, Terminal } from "lucide-react";
+import { ChevronDown, Cpu, Database, FileCode, Terminal, Github, Linkedin } from "lucide-react";
 
 // New Iron Man model from the generated file
-const IronManModel = ({ scale = 1.5 }) => {
+const IronManModel = ({ scale = 2.5 }) => {
   const { scene } = useGLTF('/models/ironman.glb');
   const modelRef = useRef<THREE.Group>(null);
+  const [hovered, setHovered] = useState(false);
+  
+  // Handle cursor pointer and highlight effects
+  useEffect(() => {
+    document.body.style.cursor = hovered ? 'grab' : 'auto';
+    return () => { document.body.style.cursor = 'auto'; };
+  }, [hovered]);
   
   useEffect(() => {
     if (scene) {
@@ -18,34 +33,64 @@ const IronManModel = ({ scale = 1.5 }) => {
         if (object instanceof THREE.Mesh) {
           object.castShadow = true;
           object.receiveShadow = true;
+          if (object.material) {
+            object.material.metalness = 0.9;
+            object.material.roughness = 0.1;
+          }
         }
       });
     }
   }, [scene]);
   
-  // Rotate slowly
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (modelRef.current) {
-        modelRef.current.rotation.y += 0.01;
+  // Pulsating effect for hover state
+  useFrame((state) => {
+    if (modelRef.current) {
+      // Add subtle breathing animation
+      const t = state.clock.getElapsedTime();
+      modelRef.current.rotation.y = Math.sin(t / 4) * 0.2;
+      
+      if (hovered) {
+        // Highlight effect when hovered
+        const pulse = Math.sin(t * 3) * 0.05 + 1;
+        modelRef.current.scale.set(scale * pulse, scale * pulse, scale * pulse);
       }
-    }, 30);
-    
-    return () => clearInterval(interval);
-  }, []);
+    }
+  });
   
   return (
-    <group ref={modelRef} scale={[scale, scale, scale]} position={[0, -1.2, 0]}>
-      <primitive object={scene} />
-      
-      {/* Light to illuminate the model */}
-      <pointLight
-        position={[0, 1, 2]}
-        intensity={2}
-        color="#0a84ff"
-        distance={5}
-      />
-    </group>
+    <Float
+      speed={2} // Animation speed
+      rotationIntensity={0.2} // Rotation intensity
+      floatIntensity={0.5} // Float intensity
+    >
+      <group 
+        ref={modelRef} 
+        scale={[scale, scale, scale]} 
+        position={[0, -1, 0]}
+        onPointerOver={() => setHovered(true)}
+        onPointerOut={() => setHovered(false)}
+      >
+        <primitive object={scene} />
+        
+        {/* Lights to illuminate the model */}
+        <pointLight
+          position={[0, 1, 2]}
+          intensity={2}
+          color="#0a84ff"
+          distance={5}
+        />
+        
+        {/* Highlight glow when hovered */}
+        {hovered && (
+          <pointLight
+            position={[0, 0, 2]}
+            intensity={4}
+            color="#0a84ff"
+            distance={5}
+          />
+        )}
+      </group>
+    </Float>
   );
 };
 
@@ -210,30 +255,70 @@ const HeroSection = () => {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.4 }}
-          className="w-full lg:w-1/2 h-[350px] md:h-[450px] relative perspective jarvis-scan"
+          className="w-full lg:w-1/2 h-[450px] md:h-[600px] relative perspective jarvis-scan"
         >
-          <div className="w-full h-full">
-            <Canvas camera={{ position: [0, 0, 4], fov: 50 }} shadows>
+          <div className="w-full h-full hud-element border border-[#0a84ff]/30 rounded overflow-hidden">
+            <Canvas 
+              camera={{ position: [0, 0, 3.5], fov: 40 }} 
+              shadows
+              dpr={[1, 2]} // Better render quality
+              gl={{ 
+                antialias: true,
+                alpha: true,
+                powerPreference: 'high-performance'
+              }}
+            >
               <color attach="background" args={["#000000"]} />
+              <fog attach="fog" args={['#000000', 5, 20]} />
               <ambientLight intensity={0.2} />
               <spotLight position={[5, 5, 5]} angle={0.15} penumbra={1} intensity={0.8} castShadow />
-              <pointLight position={[-5, -5, -5]} intensity={0.2} />
               
               <Suspense fallback={null}>
-                <IronManModel scale={1.8} />
+                {/* Environment creates a more realistic scene with reflections */}
+                <Environment preset="city" />
+                
+                {/* The main 3D model */}
+                <IronManModel scale={2.5} />
+                
+                {/* Floor shadow */}
+                <ContactShadows
+                  opacity={0.4}
+                  scale={5}
+                  blur={2.5}
+                  far={2}
+                  resolution={256}
+                  color="#0a84ff"
+                />
+                
+                {/* Interactive controls */}
                 <OrbitControls 
                   enableZoom={false}
                   enablePan={false}
                   minPolarAngle={Math.PI / 4}
-                  maxPolarAngle={Math.PI / 1.5}
+                  maxPolarAngle={Math.PI / 1.8}
+                  rotateSpeed={0.5}
+                  dampingFactor={0.1}
+                  enableDamping={true}
                 />
-                <Stars radius={50} depth={50} count={1000} factor={4} fade speed={1} />
+                
+                {/* Background stars */}
+                <Stars radius={100} depth={50} count={3000} factor={5} fade speed={1} />
               </Suspense>
             </Canvas>
+            
+            {/* Scanning animation overlay */}
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0a84ff]/5 to-transparent pointer-events-none" style={{
+              animation: 'scan 4s ease-in-out infinite',
+              backgroundSize: '100% 5px',
+              zIndex: 10
+            }}></div>
+            
+            {/* Grid overlay for tech effect */}
+            <div className="absolute inset-0 bg-grid-pattern pointer-events-none opacity-20"></div>
           </div>
           
           {/* HUD elements around the 3D model */}
-          <div className="absolute top-5 right-5 hud-element px-3 py-1 text-xs">
+          <div className="absolute top-5 right-5 hud-element px-3 py-1 text-xs z-10 backdrop-blur-sm">
             <div className="hud-corner hud-corner-tl"></div>
             <div className="hud-corner hud-corner-tr"></div>
             <div className="hud-corner hud-corner-bl"></div>
@@ -244,20 +329,51 @@ const HeroSection = () => {
             </div>
           </div>
           
-          <div className="absolute bottom-5 left-5 hud-element px-3 py-1 text-xs">
+          <div className="absolute bottom-5 left-5 hud-element px-3 py-1 text-xs z-10 backdrop-blur-sm">
             <div className="hud-corner hud-corner-tl"></div>
             <div className="hud-corner hud-corner-tr"></div>
             <div className="hud-corner hud-corner-bl"></div>
             <div className="hud-corner hud-corner-br"></div>
             <div className="flex items-center space-x-2">
               <Database size={12} className="text-[#0a84ff]" />
-              <span className="text-[#0a84ff]">DRAG TO ROTATE</span>
+              <span className="text-[#0a84ff]">INTERACTIVE MODEL</span>
             </div>
           </div>
           
-          <div className="absolute bottom-5 right-5 px-2 py-1 bg-black/40 backdrop-blur-sm rounded border border-[#0a84ff]/20 text-xs font-mono text-[#0a84ff]/80">
+          {/* Social links in futuristic style */}
+          <div className="absolute top-5 left-5 flex space-x-2 z-10">
+            <a 
+              href="https://github.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="w-8 h-8 flex items-center justify-center rounded-full bg-black/50 border border-[#0a84ff]/30 text-[#0a84ff] hover:bg-[#0a84ff]/20 hover:border-[#0a84ff] transition-all duration-300 backdrop-blur-sm"
+            >
+              <Github size={16} />
+            </a>
+            <a 
+              href="https://linkedin.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="w-8 h-8 flex items-center justify-center rounded-full bg-black/50 border border-[#0a84ff]/30 text-[#0a84ff] hover:bg-[#0a84ff]/20 hover:border-[#0a84ff] transition-all duration-300 backdrop-blur-sm"
+            >
+              <Linkedin size={16} />
+            </a>
+          </div>
+          
+          <div className="absolute bottom-5 right-5 px-2 py-1 bg-black/40 backdrop-blur-sm rounded border border-[#0a84ff]/20 text-xs font-mono text-[#0a84ff]/80 z-10">
             {currentTime.toLocaleTimeString('en-US', { hour12: false })}
           </div>
+          
+          {/* Interactive hint */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 2, duration: 1 }}
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap px-3 py-1 text-sm text-[#0a84ff] font-mono bg-black/50 backdrop-blur-sm border border-[#0a84ff]/30 rounded-full z-10 pointer-events-none"
+            style={{ animationName: 'fadeInOut', animationDuration: '3s', animationIterationCount: 2 }}
+          >
+            Click and drag to interact
+          </motion.div>
         </motion.div>
       </div>
       

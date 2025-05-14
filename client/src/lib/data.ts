@@ -1,58 +1,46 @@
-// Project data
+// Project data - Reduced to 3 highlighted projects with AI/tech focus
 export const projects = [
   {
-    title: "E-Commerce Platform",
-    description: "A full-stack e-commerce platform with React, Node.js, and Stripe integration for payments. Features include product filtering, cart management, and user authentication.",
-    image: "https://pixabay.com/get/g7b951a1de785097e0812f6a5975b10b28e1063c7d45327d2b5bc242b770fdfdb0919aff800857c6280d0c5dc423367ec2542bb41cb609920fd879a474c12f190_1280.jpg",
-    technologies: ["React", "Node.js", "MongoDB", "Stripe", "JWT"],
+    title: "AI-Powered Image Generator",
+    description: "A machine learning application that creates custom artwork from text prompts. Uses advanced AI models to transform your ideas into stunning visuals.",
+    image: "https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    technologies: ["React", "TensorFlow.js", "OpenAI API", "WebGL", "Tailwind CSS"],
     github: "https://github.com",
     demo: "https://example.com",
-    type: "Full Stack"
+    type: "AI Application",
+    features: [
+      "Text-to-image generation",
+      "Style transfer capabilities",
+      "API integration with state-of-the-art models"
+    ]
   },
   {
-    title: "Real-time Chat Application",
-    description: "A real-time messaging platform built with React and Firebase. Includes features like user presence, message read status, and media sharing capabilities.",
-    image: "https://pixabay.com/get/ge2bd56a13b775bb49199fcf44ca2c4c048856c85fd496bf4dc6cc126ad97b7ec6b114bb3851a14bf40f4beafb4cc956140fb124bff64114dc78cc0a32a1e671b_1280.jpg",
-    technologies: ["React", "Firebase", "Firestore", "Material UI"],
+    title: "3D Interactive Product Configurator",
+    description: "A WebGL-powered 3D product visualization tool allowing users to customize and view products in real-time with photorealistic rendering.",
+    image: "https://images.pexels.com/photos/7054889/pexels-photo-7054889.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    technologies: ["Three.js", "React", "WebGL", "GLSL Shaders", "Node.js"],
     github: "https://github.com",
     demo: "https://example.com",
-    type: "Frontend"
+    type: "3D Web Application",
+    features: [
+      "Real-time material & color customization",
+      "Physics-based rendering",
+      "AR view on mobile devices"
+    ]
   },
   {
-    title: "Task Management System",
-    description: "A productivity app for team task management with drag-and-drop interfaces, task assignments, deadlines, and progress tracking.",
-    image: "https://pixabay.com/get/g52b3d0ed12b78850348b8fdf131514cf1370c3ae77d217496e3a53f98837969c8b77ff3de923470fb0c6ec0a496e5798cd6e55aa3f59918dfeaa4f2300078f08_1280.jpg",
-    technologies: ["React", "Redux", "Express", "MongoDB", "Socket.io"],
+    title: "Jarvis-Inspired Smart Dashboard",
+    description: "A futuristic data visualization dashboard inspired by Tony Stark's Jarvis. Features real-time analytics, predictive insights, and voice controls.",
+    image: "https://images.pexels.com/photos/7054528/pexels-photo-7054528.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    technologies: ["React", "D3.js", "WebSockets", "TensorFlow.js", "Speech Recognition API"],
     github: "https://github.com",
     demo: "https://example.com",
-    type: "Full Stack"
-  },
-  {
-    title: "Portfolio Website",
-    description: "A responsive portfolio website showcasing creative work with animations, filtering, and contact functionality.",
-    image: "https://pixabay.com/get/g6d0aabf5cee6143f3ae943e2df0b68d194c26780f80b98c4f62bc946ddaaf7e2c68aa2f3fb7ee06a05585c11841285d8c660d1742181d1c9362e4d7b165bfcea_1280.jpg",
-    technologies: ["React", "GSAP", "Tailwind CSS", "Framer Motion"],
-    github: "https://github.com",
-    demo: "https://example.com",
-    type: "Frontend"
-  },
-  {
-    title: "Weather Dashboard",
-    description: "A weather app with 7-day forecasts, location detection, and interactive data visualization for temperature, humidity, and wind conditions.",
-    image: "https://pixabay.com/get/gaed0dca3ca37856622a542b817563a811da97d29031ff63503fb6d43021de3fec18510b161aecb6e9bb4f90eec84455e0ded5b2e345c7471060b6f6f0ce2d6fc_1280.jpg",
-    technologies: ["React", "Chart.js", "OpenWeather API", "Geolocation API"],
-    github: "https://github.com",
-    demo: "https://example.com",
-    type: "Frontend"
-  },
-  {
-    title: "Fitness Tracker",
-    description: "A mobile-responsive fitness tracking application with workout planning, progress visualization, and social sharing features.",
-    image: "https://pixabay.com/get/gaad4732fb91a744beff4b01bb73b15385d62b946df3d70625e6f90821e2a8f3c31ee1ee19261288c191747a56c0b9ee296d1d388d6489cc5e3a3b8866c64361b_1280.jpg",
-    technologies: ["React", "Node.js", "Express", "MongoDB", "D3.js"],
-    github: "https://github.com",
-    demo: "https://example.com",
-    type: "Full Stack"
+    type: "Data Visualization",
+    features: [
+      "Voice-controlled interface",
+      "Real-time data streaming",
+      "Machine learning predictions"
+    ]
   }
 ];
 
