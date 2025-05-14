@@ -1,0 +1,161 @@
+import { Suspense, useEffect, useState, useRef } from "react";
+import { Canvas } from "@react-three/fiber";
+import { Loader } from "@react-three/drei";
+import { motion, AnimatePresence } from "framer-motion";
+import { Helmet } from "react-helmet-async";
+import { useAudio } from "./lib/stores/useAudio";
+
+// Components
+import Navbar from "./components/Navbar";
+import HeroSection from "./components/HeroSection";
+import SkillsSection from "./components/SkillsSection";
+import ProjectsSection from "./components/ProjectsSection";
+import ExperienceSection from "./components/ExperienceSection";
+import AboutSection from "./components/AboutSection";
+import ContactSection from "./components/ContactSection";
+import ScrollProgress from "./components/ScrollProgress";
+import IronManFlying from "./components/IronManFlying";
+
+// Sound effects setup
+const App = () => {
+  const [loading, setLoading] = useState(true);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const { setBackgroundMusic, setHitSound, setSuccessSound } = useAudio();
+
+  // Initialize audio
+  useEffect(() => {
+    // Load background music
+    const bgMusic = new Audio("/sounds/background.mp3");
+    bgMusic.loop = true;
+    bgMusic.volume = 0.4;
+    setBackgroundMusic(bgMusic);
+
+    // Load hit sound (for UI interactions)
+    const hit = new Audio("/sounds/hit.mp3");
+    hit.volume = 0.3;
+    setHitSound(hit);
+
+    // Load success sound (for form submissions, etc.)
+    const success = new Audio("/sounds/success.mp3");
+    success.volume = 0.5;
+    setSuccessSound(success);
+
+    // Simulate loading
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2500);
+
+    return () => clearTimeout(timer);
+  }, [setBackgroundMusic, setHitSound, setSuccessSound]);
+
+  return (
+    <>
+      <Helmet>
+        <title>John Doe | Web Developer | Iron Man Portfolio</title>
+        <meta name="description" content="Interactive Marvel-themed 3D portfolio of John Doe - Web Developer, UI/UX Enthusiast & Creative Technologist" />
+      </Helmet>
+
+      <AnimatePresence>
+        {loading ? (
+          <motion.div
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="fixed inset-0 bg-background flex flex-col items-center justify-center z-50"
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="w-24 h-24 relative"
+            >
+              <div className="absolute inset-0 bg-marvel-red rounded-full opacity-50 animate-ping"></div>
+              <div className="absolute inset-2 bg-marvel-gold rounded-full opacity-80"></div>
+              <div className="absolute inset-[14px] bg-background rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-xl">JD</span>
+              </div>
+            </motion.div>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="mt-8 text-xl text-white font-orbitron"
+            >
+              Initializing System...
+            </motion.h2>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+
+      <div className="bg-background text-white relative">
+        {/* 3D canvas for flying Iron Man that follows scroll */}
+        <Canvas
+          className="fixed inset-0 pointer-events-none z-20"
+          camera={{ position: [0, 0, 5], fov: 75 }}
+          gl={{ alpha: true }}
+        >
+          <Suspense fallback={null}>
+            <IronManFlying scrollContainer={scrollContainerRef} />
+          </Suspense>
+        </Canvas>
+
+        <div className="absolute inset-0 pointer-events-none z-0">
+          <div className="absolute inset-0 bg-[url('/textures/sky.png')] opacity-5 bg-cover bg-center" />
+        </div>
+
+        <Navbar />
+        <ScrollProgress />
+
+        <main
+          ref={scrollContainerRef}
+          className="relative z-10 snap-y snap-mandatory overflow-y-auto h-screen hide-scrollbar"
+        >
+          <section id="hero" className="snap-start">
+            <HeroSection />
+          </section>
+
+          <section id="skills" className="snap-start">
+            <SkillsSection />
+          </section>
+
+          <section id="projects" className="snap-start">
+            <ProjectsSection />
+          </section>
+
+          <section id="experience" className="snap-start">
+            <ExperienceSection />
+          </section>
+
+          <section id="about" className="snap-start">
+            <AboutSection />
+          </section>
+
+          <section id="contact" className="snap-start">
+            <ContactSection />
+          </section>
+        </main>
+
+        <Loader 
+          containerStyles={{
+            background: "linear-gradient(to bottom, #0D0D0D, #9E1B32, #0D0D0D)",
+            zIndex: 100
+          }}
+          innerStyles={{
+            backgroundColor: "#F6BE00",
+          }}
+          barStyles={{
+            backgroundColor: "#FFFFFF",
+          }}
+          dataStyles={{
+            color: "#FFFFFF",
+            fontFamily: "Orbitron, sans-serif",
+            fontSize: "14px"
+          }}
+          dataInterpolation={(p) => `Loading Stark Industries OS ${p.toFixed(0)}%`}
+        />
+      </div>
+    </>
+  );
+};
+
+export default App;

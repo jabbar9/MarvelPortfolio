@@ -1,0 +1,252 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 5%; /* #0D0D0D */
+    --foreground: 0 0% 100%; /* #FFFFFF */
+    
+    --marvel-red: 347 70% 37%; /* #9E1B32 */
+    --marvel-gold: 47 100% 50%; /* #F6BE00 */
+    
+    --card: 0 0% 5%;
+    --card-foreground: 0 0% 100%;
+    
+    --popover: 0 0% 5%;
+    --popover-foreground: 0 0% 100%;
+    
+    --primary: 347 70% 37%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 47 100% 50%;
+    --secondary-foreground: 0 0% 5%;
+    
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
+    
+    --accent: 47 100% 50%;
+    --accent-foreground: 0 0% 5%;
+    
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 347 70% 37%;
+    
+    --radius: 0.5rem;
+  }
+  
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-family: 'Orbitron', sans-serif;
+    overflow-x: hidden;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Bebas Neue', sans-serif;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.hero-gradient {
+  background: linear-gradient(
+    to bottom,
+    rgba(13, 13, 13, 1) 0%,
+    rgba(158, 27, 50, 0.3) 50%,
+    rgba(13, 13, 13, 1) 100%
+  );
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, #9E1B32, #F6BE00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+.hud-border {
+  position: relative;
+  border: 2px solid #F6BE00;
+  border-radius: 4px;
+  padding: 1px;
+  overflow: hidden;
+}
+
+.hud-border::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(246, 190, 0, 0.4), transparent);
+  animation: hud-scan 2s infinite;
+}
+
+@keyframes hud-scan {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.jarvis-ui {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.jarvis-ui::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #F6BE00;
+  animation: jarvis-scan 3s infinite;
+}
+
+@keyframes jarvis-scan {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(1000%);
+  }
+}
+
+.section {
+  min-height: 100vh;
+  padding: 4rem 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+canvas {
+  touch-action: none;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+/* Repulsor beam animation */
+.repulsor-beam {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(246,190,0,1) 0%, rgba(246,190,0,0.5) 60%, rgba(246,190,0,0) 100%);
+  filter: blur(1px);
+  box-shadow: 0 0 10px 2px #F6BE00;
+  animation: repulsor-pulse 1.5s infinite;
+  z-index: 10;
+}
+
+@keyframes repulsor-pulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.3);
+  }
+}
+
+/* Tooltip */
+.marvel-tooltip {
+  position: relative;
+}
+
+.marvel-tooltip:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 5px 10px;
+  background: #0D0D0D;
+  color: #FFFFFF;
+  border: 1px solid #9E1B32;
+  border-radius: 4px;
+  white-space: nowrap;
+  font-size: 12px;
+  z-index: 1000;
+}
+
+/* HUD Elements */
+.hud-element {
+  position: relative;
+  border: 1px solid rgba(246, 190, 0, 0.5);
+  border-radius: 4px;
+  background-color: rgba(13, 13, 13, 0.8);
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+}
+
+.hud-element:hover {
+  border-color: #F6BE00;
+  box-shadow: 0 0 15px rgba(246, 190, 0, 0.5);
+}
+
+.hud-corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-color: #F6BE00;
+}
+
+.hud-corner-tl {
+  top: 0;
+  left: 0;
+  border-top: 2px solid;
+  border-left: 2px solid;
+}
+
+.hud-corner-tr {
+  top: 0;
+  right: 0;
+  border-top: 2px solid;
+  border-right: 2px solid;
+}
+
+.hud-corner-bl {
+  bottom: 0;
+  left: 0;
+  border-bottom: 2px solid;
+  border-left: 2px solid;
+}
+
+.hud-corner-br {
+  bottom: 0;
+  right: 0;
+  border-bottom: 2px solid;
+  border-right: 2px solid;
+}
