@@ -15,6 +15,7 @@ import AboutSection from "./components/AboutSection";
 import ContactSection from "./components/ContactSection";
 import ScrollProgress from "./components/ScrollProgress";
 import IronManFlying from "./components/IronManFlying";
+import Footer from "./components/Footer";
 
 // Sound effects setup
 const App = () => {
@@ -61,28 +62,76 @@ const App = () => {
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
-            className="fixed inset-0 bg-background flex flex-col items-center justify-center z-50"
+            className="fixed inset-0 bg-black flex flex-col items-center justify-center z-50"
           >
+            {/* Grid overlay */}
+            <div className="absolute inset-0 bg-grid-pattern opacity-20"></div>
+            
+            {/* Scanning effect */}
+            <div 
+              className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0a84ff]/10 to-transparent" 
+              style={{ 
+                animation: 'scan 3s ease-in-out infinite',
+                backgroundSize: '100% 5px'
+              }}
+            ></div>
+            
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="w-24 h-24 relative"
+              className="w-32 h-32 relative"
             >
-              <div className="absolute inset-0 bg-marvel-red rounded-full opacity-50 animate-ping"></div>
-              <div className="absolute inset-2 bg-marvel-gold rounded-full opacity-80"></div>
-              <div className="absolute inset-[14px] bg-background rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-xl">JD</span>
+              {/* Pulsating circle */}
+              <motion.div 
+                className="absolute inset-0 rounded-full border-2 border-[#0a84ff]/50"
+                animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0.8, 0.5] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              ></motion.div>
+              
+              {/* Inner circles */}
+              <div className="absolute inset-4 rounded-full border border-[#0a84ff]/30 flex items-center justify-center">
+                <div className="w-16 h-16 rounded-full bg-[#0a84ff]/10 border border-[#0a84ff] flex items-center justify-center">
+                  <span className="text-[#0a84ff] font-bold text-2xl font-mono">JD</span>
+                </div>
               </div>
+              
+              {/* Rotating outer ring */}
+              <motion.div 
+                className="absolute inset-[-10px] rounded-full border-2 border-dashed border-[#0a84ff]/20"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              ></motion.div>
             </motion.div>
-            <motion.h2
+            
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="mt-8 text-xl text-white font-orbitron"
+              className="mt-12 flex flex-col items-center"
             >
-              Initializing System...
-            </motion.h2>
+              <h2 className="text-xl text-white font-mono mb-3">
+                <span className="text-[#0a84ff]">JARVIS</span> SYSTEM
+              </h2>
+              
+              <div className="w-64 h-2 bg-black/60 rounded-full overflow-hidden border border-[#0a84ff]/20">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: "100%" }}
+                  transition={{ duration: 2, ease: "easeInOut" }}
+                  className="h-full bg-gradient-to-r from-[#0a84ff]/60 to-[#0a84ff] rounded-full"
+                ></motion.div>
+              </div>
+              
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: [0, 1, 0] }}
+                transition={{ duration: 2, repeat: Infinity, repeatType: "loop" }}
+                className="mt-4 text-xs text-[#0a84ff] font-mono"
+              >
+                INITIALIZING INTERFACE...
+              </motion.p>
+            </motion.div>
           </motion.div>
         ) : null}
       </AnimatePresence>
@@ -133,6 +182,8 @@ const App = () => {
           <section id="contact" className="snap-start">
             <ContactSection />
           </section>
+          
+          <Footer />
         </main>
 
         <Loader 
