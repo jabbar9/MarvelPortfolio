@@ -511,8 +511,8 @@ const HeroSection = () => {
             
             {/* HUD elements overlay */}
             <div className="absolute inset-0 pointer-events-none">
-              {/* Large central DRAG instruction */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hud-element px-5 py-3 text-base backdrop-blur-md border-2 border-[#0a84ff]/70 z-10">
+              {/* DRAG instruction moved below the model's feet */}
+              <div className="absolute bottom-10 left-1/2 -translate-x-1/2 hud-element px-5 py-3 text-base backdrop-blur-md border-2 border-[#0a84ff]/70 z-10">
                 <div className="flex items-center space-x-3">
                   <Database size={20} className="text-[#0a84ff]" />
                   <span className="text-[#0a84ff] font-bold tracking-wide">DRAG TO ROTATE MODEL</span>
