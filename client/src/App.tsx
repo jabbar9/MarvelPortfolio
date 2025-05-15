@@ -26,24 +26,29 @@ const App = () => {
 
 
   useEffect(() => {
-  const startAudio = () => {
-    playAll();
-    setAudioStarted(true);
-    ["click", "touchstart", "keydown"].forEach(event =>
-      window.removeEventListener(event, startAudio)
-    );
+  const handlePlayMusic = () => {
+    const bgMusic = new Audio("/sounds/Endgame.mp3");
+    bgMusic.loop = true;
+    bgMusic.volume = 0.5;
+
+    bgMusic.play()
+      .then(() => {
+        console.log("🎵 Music started");
+      })
+      .catch((err) => {
+        console.error("❌ Music play failed:", err);
+      });
+
+    window.removeEventListener("click", handlePlayMusic);
   };
 
-  ["click", "touchstart", "keydown"].forEach(event =>
-    window.addEventListener(event, startAudio)
-  );
+  // Add listener for any click to start the music
+  window.addEventListener("click", handlePlayMusic);
 
-  return () => {
-    ["click", "touchstart", "keydown"].forEach(event =>
-      window.removeEventListener(event, startAudio)
-    );
-  };
-}, [playAll]);
+  return () => window.removeEventListener("click", handlePlayMusic);
+}, []);
+
+
 
 
   // Initialize audio with Avengers audio

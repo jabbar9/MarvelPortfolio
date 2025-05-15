@@ -7,7 +7,7 @@ const experiences = [
   {
     company: "World Retail Exchange",
     role: "App Developer",
-    period: "2019 - Present",
+    period: "2025 - Present",
     achievements: [
       "Published 50+ apps for top global retailers",
       "Designed and implemented a white-labelling system",
@@ -20,7 +20,7 @@ const experiences = [
   {
     company: "TechStart Solutions",
     role: "Frontend Developer",
-    period: "2017 - 2019",
+    period: "2024 - 2025",
     achievements: [
       "Built responsive web applications using React",
       "Developed custom UI components and libraries",

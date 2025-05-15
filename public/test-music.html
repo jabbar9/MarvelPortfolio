@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Test Music</title>
+</head>
+<body>
+  <h1>Play Background Music</h1>
+  <button onclick="playAudio()">Play Audio</button>
+
+  <script>
+    function playAudio() {
+      const audio = new Audio('/sounds/Endgame.mp3');
+      audio.loop = true;
+      audio.volume = 0.5;
+      audio.play().catch((err) => {
+        console.error('Audio play failed:', err);
+      });
+    }
+  </script>
+</body>
+</html>

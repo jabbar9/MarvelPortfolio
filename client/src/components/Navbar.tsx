@@ -16,6 +16,8 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
   const { isMuted, toggleMute, backgroundMusic, playHit } = useAudio();
+  const { toggleBackgroundMusic, isPlaying } = useAudio();
+
 
   // Handle scroll event to change navbar style
   useEffect(() => {
@@ -132,13 +134,12 @@ const Navbar = () => {
                 
                 <div className="h-5 w-[1px] bg-[#0a84ff]/30 mx-2"></div>
                 
-                <button
-                  onClick={handleStartMusic}
-                  className="text-white hover:text-[#0a84ff] p-2 rounded-full transition-colors duration-300 border border-transparent hover:border-[#0a84ff]/30"
-                  aria-label={isMuted ? "Unmute" : "Mute"}
-                >
-                  {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
-                </button>
+                 <button
+        onClick={toggleBackgroundMusic}
+        className="bg-blue-600 text-white px-4 py-2 rounded ml-4"
+      >
+        {isPlaying ? "Pause Music" : "Play Music"}
+      </button>
               </div>
             </div>
 
