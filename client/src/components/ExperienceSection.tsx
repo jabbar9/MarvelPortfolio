@@ -166,9 +166,9 @@ const ExperienceSection = () => {
           variants={titleVariants}
           className="mb-16 text-center"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-marvel-gold">Mission History</h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-marvel-gold">Work Experience</h2>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-            Previous deployments in the field of web development.
+            On Field Experience of Web & App Development.
           </p>
         </motion.div>
         

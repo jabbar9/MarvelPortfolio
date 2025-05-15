@@ -191,7 +191,7 @@ const Footer = () => {
       <div className="border-t border-[#0a84ff]/20 py-4">
         <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-500 text-sm mb-4 md:mb-0">
-            © {new Date().getFullYear()} John Doe. All rights reserved.
+            © {new Date().getFullYear()} Abdul Jabbar. All rights reserved.
           </p>
           
           <div className="flex items-center space-x-6">

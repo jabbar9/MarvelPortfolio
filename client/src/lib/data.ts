@@ -1,47 +1,73 @@
 // Project data - Reduced to 3 highlighted projects with AI/tech focus
 export const projects = [
   {
-    title: "AI-Powered Image Generator",
-    description: "A machine learning application that creates custom artwork from text prompts. Uses advanced AI models to transform your ideas into stunning visuals.",
-    image: "https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    technologies: ["React", "TensorFlow.js", "OpenAI API", "WebGL", "Tailwind CSS"],
-    github: "https://github.com",
-    demo: "https://example.com",
-    type: "AI Application",
+    title: "Hotel Booking System Development",
+    description: `Developed a full-stack Hotel Booking System with React.js,
+ TypeScript, MongoDB Atlas, and Express, creating 20+ React
+ components and 15+ API endpoints. `,
+    image:
+      "https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    technologies: [
+      "React",
+      "Typescript",
+      "MongoDB Atlas",
+      "Express",
+      "Tailwind CSS",
+    ],
+    github: "https://github.com/jabbar9/mern-booking-app",
+    demo: "https://mern-booking-app-79tr.onrender.com/",
+    type: "Web Application",
     features: [
-      "Text-to-image generation",
-      "Style transfer capabilities",
-      "API integration with state-of-the-art models"
-    ]
+      "Auth system with secure access control",
+      "Image handling via Cloudinary",
+      "Tested flows ensuring uptime & UX",
+    ],
   },
   {
-    title: "3D Interactive Product Configurator",
-    description: "A WebGL-powered 3D product visualization tool allowing users to customize and view products in real-time with photorealistic rendering.",
-    image: "https://images.pexels.com/photos/7054889/pexels-photo-7054889.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    technologies: ["Three.js", "React", "WebGL", "GLSL Shaders", "Node.js"],
-    github: "https://github.com",
-    demo: "https://example.com",
-    type: "3D Web Application",
+    title: "Food Ordering Website Development",
+    description: `Built a responsive Food Ordering Website using React for
+ dynamic front-end interactions and MongoDB for scalable data
+ storage. Integrated Stripe for secure payment processing.`,
+    image:
+      "https://images.pexels.com/photos/7054889/pexels-photo-7054889.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    technologies: [
+      "React",
+      "Typescript",
+      "MongoDB Atlas",
+      "Stripe",
+      "AWS - EC2",
+    ],
+    github: "https://github.com/jabbar9/food-delivery",
+    demo: "https://food-delivery-frontend-3orv.onrender.com",
+    type: "Web Application",
     features: [
-      "Real-time material & color customization",
-      "Physics-based rendering",
-      "AR view on mobile devices"
-    ]
+      "Stripe integration for secure payments",
+      "Secure auth with Express.js",
+      "Optimized deployment on Render",
+    ],
   },
   {
-    title: "Jarvis-Inspired Smart Dashboard",
-    description: "A futuristic data visualization dashboard inspired by Tony Stark's Jarvis. Features real-time analytics, predictive insights, and voice controls.",
-    image: "https://images.pexels.com/photos/7054528/pexels-photo-7054528.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    technologies: ["React", "D3.js", "WebSockets", "TensorFlow.js", "Speech Recognition API"],
-    github: "https://github.com",
-    demo: "https://example.com",
-    type: "Data Visualization",
+    title: "Portolio Website",
+    description:
+      "A futuristic data visualization dashboard inspired by Tony Stark's Jarvis. Features real-time analytics, predictive insights, and voice controls.",
+    image:
+      "https://images.pexels.com/photos/7054528/pexels-photo-7054528.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    technologies: [
+      "React",
+      "Typescript",
+      "MongoDB Atlas",
+      "Express",
+      "Tailwind CSS",
+    ],
+    github: "https://github.com/jabbar9/PortfolioWebsite",
+    demo: "https://jabbar9.github.io/PortfolioWebsite/",
+    type: "Web Application",
     features: [
-      "Voice-controlled interface",
-      "Real-time data streaming",
-      "Machine learning predictions"
-    ]
-  }
+      "Responsive UI with smooth scroll",
+      "GitHub Pages for fast deployment",
+      "Complete AI Generated Code",
+    ],
+  },
 ];
 
 // Skill categories
@@ -56,7 +82,7 @@ export const skillCategories = [
       { name: "CSS3", level: 90 },
       { name: "JavaScript", level: 92 },
       { name: "Tailwind", level: 88 },
-    ]
+    ],
   },
   {
     name: "Backend",
@@ -66,7 +92,7 @@ export const skillCategories = [
       { name: "MongoDB", level: 78 },
       { name: "SQL", level: 75 },
       { name: "Firebase", level: 80 },
-    ]
+    ],
   },
   {
     name: "Tools",
@@ -76,7 +102,7 @@ export const skillCategories = [
       { name: "Figma", level: 78 },
       { name: "VS Code", level: 90 },
       { name: "Webpack", level: 75 },
-    ]
+    ],
   },
   {
     name: "Other",
@@ -86,8 +112,8 @@ export const skillCategories = [
       { name: "Testing", level: 65 },
       { name: "Responsive Design", level: 92 },
       { name: "Performance Optimization", level: 80 },
-    ]
-  }
+    ],
+  },
 ];
 
 // Experience data
@@ -99,11 +125,11 @@ export const experiences = [
     achievements: [
       "Published 50+ apps for top global retailers",
       "Designed and implemented a white-labelling system",
-      "Led a team of 5 developers to deliver projects on time",
+      "Led a team of developers to deliver projects on time",
       "Optimized app performance, reducing load time by 40%",
-      "Integrated payment gateways and security features"
+      "Integrated payment gateways and security features",
     ],
-    logo: "/company-logo-1.svg"
+    logo: "/company-logo-1.svg",
   },
   {
     company: "TechStart Solutions",
@@ -114,9 +140,9 @@ export const experiences = [
       "Developed custom UI components and libraries",
       "Collaborated with designers to implement pixel-perfect interfaces",
       "Improved website accessibility according to WCAG standards",
-      "Mentored junior developers in frontend technologies"
+      "Mentored junior developers in frontend technologies",
     ],
-    logo: "/company-logo-2.svg"
+    logo: "/company-logo-2.svg",
   },
   {
     company: "Digital Innovations",
@@ -127,10 +153,10 @@ export const experiences = [
       "Implemented responsive designs for mobile compatibility",
       "Created interactive features using JavaScript and jQuery",
       "Collaborated with the design team on UI improvements",
-      "Optimized websites for search engines and performance"
+      "Optimized websites for search engines and performance",
     ],
-    logo: "/company-logo-3.svg"
-  }
+    logo: "/company-logo-3.svg",
+  },
 ];
 
 // Testimonials data if needed
@@ -139,18 +165,18 @@ export const testimonials = [
     name: "Jane Smith",
     role: "CEO at TechCorp",
     text: "John delivered an exceptional website that exceeded our expectations. His attention to detail and technical expertise are impressive.",
-    image: "/testimonial-1.jpg"
+    image: "/testimonial-1.jpg",
   },
   {
     name: "Michael Johnson",
     role: "Marketing Director",
     text: "Working with John was a pleasure. He understood our vision and transformed it into a beautiful, functional website.",
-    image: "/testimonial-2.jpg"
+    image: "/testimonial-2.jpg",
   },
   {
     name: "Emily Brown",
     role: "Startup Founder",
     text: "John's technical skills and creativity helped us launch our platform ahead of schedule. He's responsive and delivers quality work.",
-    image: "/testimonial-3.jpg"
-  }
+    image: "/testimonial-3.jpg",
+  },
 ];

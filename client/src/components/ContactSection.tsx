@@ -125,12 +125,12 @@ const ContactSection = () => {
               <div className="space-y-6">
                 <div>
                   <h4 className="text-lg text-marvel-gold mb-2">Email</h4>
-                  <p className="text-white">contact@johndoe.dev</p>
+                  <p className="text-white">shaikhabduldev@gmail.com</p>
                 </div>
                 
                 <div>
                   <h4 className="text-lg text-marvel-gold mb-2">Location</h4>
-                  <p className="text-white">San Francisco, CA</p>
+                  <p className="text-white">Mumbai Maharashtra, India</p>
                 </div>
                 
                 <div>
@@ -272,7 +272,7 @@ const ContactSection = () => {
         
         <div className="mt-20 text-center">
           <p className="text-gray-400">
-            © {new Date().getFullYear()} John Doe. Built with React, Three.js, and GSAP.
+            © {new Date().getFullYear()} Abdul Jabbar. Built with React, Three.js, and GSAP.
           </p>
         </div>
       </div>

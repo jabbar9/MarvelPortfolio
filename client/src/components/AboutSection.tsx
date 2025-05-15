@@ -108,21 +108,21 @@ const AboutSection = () => {
                   <User size={24} className="text-marvel-gold" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-2">John Doe</h3>
+                  <h3 className="text-2xl font-bold text-white mb-2">Abdul Jabbar</h3>
                   <p className="text-marvel-gold">Web Developer & UI/UX Enthusiast</p>
                 </div>
               </div>
               
               <p className="text-gray-300 mb-4">
-                I'm a passionate web developer with 5+ years of experience building interactive and responsive web applications. With a background in design and a love for clean code, I create digital experiences that are both visually stunning and technically sound.
+                Proficient in building and deploying full-stack applications using React, Node.js, MongoDB, and AWS. My work spans secure authentication, responsive design, and seamless payment integrations, with a focus on white-labeled mobile app deployment.
               </p>
               
               <p className="text-gray-300 mb-4">
-                My journey in web development began when I built my first website for a local business. Since then, I've worked with startups and established companies, helping them bring their digital products to life.
+                As Web Development Lead for the Google Cloud Study Jam through the Google Developer Students Club, I mentored peers, led collaborative sessions, and inspired innovation.
               </p>
               
               <p className="text-gray-300">
-                When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, or sharing my knowledge through blog posts and community events.
+                Holding a Computer Science degree and certifications in Java, DSA, and Web Development, I bring a strong foundation in both frontend and backend development, always prioritizing efficient, scalable, and user-centric solutions.
               </p>
               
               {/* Animated border */}

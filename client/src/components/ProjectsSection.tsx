@@ -26,7 +26,7 @@ const TechCircle = ({ tech, index, total }: { tech: string, index: number, total
         left: `calc(50% + ${x}px)`, 
         top: `calc(50% + ${y}px)`,
         transform: 'translate(-50%, -50%)'
-      }}
+      } as React.CSSProperties }
     >
       <div className="relative flex items-center justify-center w-10 h-10 rounded-full bg-black/80 border border-[#0a84ff] p-1 z-10">
         <div className="text-xs text-white whitespace-nowrap">{tech}</div>
@@ -44,7 +44,9 @@ const TechCircle = ({ tech, index, total }: { tech: string, index: number, total
 const ScanningLine = () => (
   <motion.div 
     className="absolute left-0 w-full h-[2px] bg-[#0a84ff]/60 z-10"
-    animate={{ top: ["0%", "100%", "0%"] }}
+    style={{ position: "absolute" } as React.CSSProperties}
+  initial={{ top: "0px" } as any}
+  animate={{ top: "100px" } as any}
     transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
   />
 );
@@ -52,7 +54,7 @@ const ScanningLine = () => (
 const InteractiveCircle = ({ size, delay = 0, duration = 5 }: { size: number, delay?: number, duration?: number }) => (
   <motion.div
     className="absolute rounded-full border border-[#0a84ff]/30"
-    style={{ width: size, height: size, left: '50%', top: '50%' }}
+    style={{ width: size, height: size, left: '50%', top: '50%' }as React.CSSProperties}
     initial={{ scale: 0.5, x: '-50%', y: '-50%', opacity: 0 }}
     animate={{ 
       scale: [0.5, 1, 0.5], 
@@ -119,7 +121,7 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0], index: n
       variants={cardVariants}
       layout
       className="group relative hover:z-20 backdrop-blur-lg"
-      style={{ height: expanded ? "auto" : "450px" }}
+      style={{ height: expanded ? "auto" : "450px" } as React.CSSProperties}
     >
       {/* Background glow effect */}
       <div className="absolute inset-0 bg-black/60 rounded-2xl shadow-[0_0_15px_rgba(10,132,255,0.3)] overflow-hidden border border-[#0a84ff]/30 transition-all duration-500 group-hover:shadow-[0_0_30px_rgba(10,132,255,0.5)] group-hover:border-[#0a84ff]/60"/>
@@ -181,7 +183,7 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0], index: n
             className="absolute inset-0 bg-cover bg-center"
             animate={{ scale: hovered ? 1.1 : 1 }}
             transition={{ duration: 3, type: "spring", stiffness: 50 }}
-            style={{ backgroundImage: `url(${project.image})` }}
+            style={{ backgroundImage: `url(${project.image})` } as React.CSSProperties}
           />
           
           {/* Overlay gradients and scanning effects */}
@@ -470,7 +472,7 @@ const ProjectsSection = () => {
           </motion.div>
           
           <h2 className="text-4xl md:text-6xl font-bold mb-6 text-white">
-            Recent <span className="text-[#0a84ff]">Innovations</span>
+            Recent <span className="text-[#0a84ff]">Projects</span>
           </h2>
           
           <motion.p 

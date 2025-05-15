@@ -53,8 +53,8 @@ const App = () => {
   return (
     <>
       <Helmet>
-        <title>John Doe | Web Developer | Iron Man Portfolio</title>
-        <meta name="description" content="Interactive Marvel-themed 3D portfolio of John Doe - Web Developer, UI/UX Enthusiast & Creative Technologist" />
+        <title>Abdul Jabbar | Web Developer | App Developer</title>
+        <meta name="description" content="Interactive Marvel-themed 3D portfolio of Abdul Jabbar - Web Developer, UI/UX Enthusiast & Creative Technologist" />
       </Helmet>
 
       <AnimatePresence>
