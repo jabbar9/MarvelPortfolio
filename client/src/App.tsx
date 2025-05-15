@@ -21,7 +21,30 @@ import Footer from "./components/Footer";
 const App = () => {
   const [loading, setLoading] = useState(true);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const { setBackgroundMusic, setHitSound, setSuccessSound } = useAudio();
+  const { setBackgroundMusic, setHitSound, setSuccessSound, playAll  } = useAudio();
+  const [audioStarted, setAudioStarted] = useState(false);
+
+
+  useEffect(() => {
+  const startAudio = () => {
+    playAll();
+    setAudioStarted(true);
+    ["click", "touchstart", "keydown"].forEach(event =>
+      window.removeEventListener(event, startAudio)
+    );
+  };
+
+  ["click", "touchstart", "keydown"].forEach(event =>
+    window.addEventListener(event, startAudio)
+  );
+
+  return () => {
+    ["click", "touchstart", "keydown"].forEach(event =>
+      window.removeEventListener(event, startAudio)
+    );
+  };
+}, [playAll]);
+
 
   // Initialize audio with Avengers audio
   useEffect(() => {
@@ -33,7 +56,7 @@ const App = () => {
     setBackgroundMusic(bgMusic);
 
     // Load hit sound (for UI interactions)
-    const hit = new Audio("/sounds/hit.mp3");
+    const hit = new Audio("/sounds/Endgame.mp3");
     hit.volume = 0.3;
     setHitSound(hit);
 
