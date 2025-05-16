@@ -1,0 +1,20 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]  # Trigger on pushes to main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          # Deploy ONLY the contents of the 'client' folder
+          publish_dir: ./client
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          force_orphan: true  # Clean old files on gh-pages branch
