@@ -1,0 +1,587 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 0%; /* #000000 - Darker for Jarvis UI */
+    --foreground: 0 0% 100%; /* #FFFFFF */
+    
+    --marvel-red: 347 70% 37%; /* #9E1B32 */
+    --marvel-gold: 47 100% 50%; /* #F6BE00 */
+    --jarvis-blue: 211 100% 50%; /* #0a84ff - Tony Stark's interface blue */
+    
+    --card: 0 0% 0%;
+    --card-foreground: 0 0% 100%;
+    
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 100%;
+    
+    --primary: 211 100% 50%; /* Changed to Jarvis blue */
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 47 100% 50%;
+    --secondary-foreground: 0 0% 5%;
+    
+    --muted: 210 40% 10%;
+    --muted-foreground: 210 40% 70%;
+    
+    --accent: 211 100% 50%;
+    --accent-foreground: 0 0% 100%;
+    
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 210 40% 20%;
+    --input: 210 40% 20%;
+    --ring: 211 100% 50%;
+    
+    --radius: 0.25rem;
+  }
+  
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-family: 'Orbitron', sans-serif;
+    overflow-x: hidden;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Bebas Neue', sans-serif;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.hero-gradient {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(10, 132, 255, 0.1) 50%,
+    rgba(0, 0, 0, 1) 100%
+  );
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, #0a84ff, #5ac8fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+/* Tony Stark's futuristic buttons */
+.jarvis-button {
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+  border: 1px solid rgba(10, 132, 255, 0.3);
+  border-radius: 4px;
+  padding: 12px 24px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+  text-transform: uppercase;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2),
+              inset 0 0 5px rgba(10, 132, 255, 0.1);
+}
+
+.jarvis-button:hover {
+  background-color: rgba(10, 132, 255, 0.15);
+  border-color: rgba(10, 132, 255, 0.8);
+  box-shadow: 0 0 20px rgba(10, 132, 255, 0.4),
+              inset 0 0 10px rgba(10, 132, 255, 0.2);
+  transform: translateY(-1px);
+  color: #ffffff;
+}
+
+.jarvis-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 0 5px rgba(10, 132, 255, 0.2);
+}
+
+.jarvis-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(10, 132, 255, 0.5),
+    transparent
+  );
+  transform: skewX(-25deg);
+  transition: all 0.7s ease;
+}
+
+.jarvis-button:hover::before {
+  left: 150%;
+}
+
+.jarvis-button.primary {
+  background-color: rgba(10, 132, 255, 0.15);
+  border-color: rgba(10, 132, 255, 0.6);
+  box-shadow: 0 0 15px rgba(10, 132, 255, 0.3),
+              inset 0 0 7px rgba(10, 132, 255, 0.2);
+}
+
+.jarvis-button.primary:hover {
+  background-color: rgba(10, 132, 255, 0.25);
+  box-shadow: 0 0 25px rgba(10, 132, 255, 0.5),
+              inset 0 0 15px rgba(10, 132, 255, 0.3);
+}
+
+/* Animated corner borders for buttons */
+.jarvis-button::after {
+  content: "";
+  position: absolute;
+  height: 4px;
+  width: 10px;
+  background: #0a84ff;
+  top: -1px;
+  left: -1px;
+  transition: all 0.3s ease;
+}
+
+.jarvis-button:hover::after {
+  width: 100%;
+}
+
+/* Jarvis system scanning effect */
+.jarvis-scan {
+  position: relative;
+  overflow: hidden;
+}
+
+.jarvis-scan::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(10, 132, 255, 0.15),
+    transparent
+  );
+  animation: jarvisScan 3s ease-in-out infinite;
+}
+
+.hud-border {
+  position: relative;
+  border: 2px solid #0a84ff;
+  border-radius: 4px;
+  padding: 1px;
+  overflow: hidden;
+}
+
+.hud-border::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(10, 132, 255, 0.4), transparent);
+  animation: hud-scan 2s infinite;
+}
+
+@keyframes hud-scan {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.jarvis-ui {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.jarvis-ui::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #0a84ff;
+  animation: jarvis-scan 3s infinite;
+}
+
+@keyframes jarvis-scan {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(1000%);
+  }
+}
+
+@keyframes jarvisScan {
+  0%, 100% {
+    top: -100%;
+  }
+  50% {
+    top: 100%;
+  }
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes fadeInOut {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes targetPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(rgba(10, 132, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10, 132, 255, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.bg-gradient-radial {
+  background: radial-gradient(circle, transparent 20%, rgba(0, 0, 0, 0.8) 100%);
+}
+
+.section {
+  min-height: 100vh;
+  padding: 4rem 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+canvas {
+  touch-action: none;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+/* Repulsor beam animation */
+.repulsor-beam {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(246,190,0,1) 0%, rgba(246,190,0,0.5) 60%, rgba(246,190,0,0) 100%);
+  filter: blur(1px);
+  box-shadow: 0 0 10px 2px #F6BE00;
+  animation: repulsor-pulse 1.5s infinite;
+  z-index: 10;
+}
+
+@keyframes repulsor-pulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.3);
+  }
+}
+
+/* Tooltip */
+.marvel-tooltip {
+  position: relative;
+}
+
+.marvel-tooltip:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 5px 10px;
+  background: #0D0D0D;
+  color: #FFFFFF;
+  border: 1px solid #9E1B32;
+  border-radius: 4px;
+  white-space: nowrap;
+  font-size: 12px;
+  z-index: 1000;
+}
+
+/* HUD Elements - Updated for Jarvis UI */
+.hud-element {
+  position: relative;
+  border: 1px solid rgba(10, 132, 255, 0.3);
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+}
+
+.hud-element:hover {
+  border-color: #0a84ff;
+  box-shadow: 0 0 15px rgba(10, 132, 255, 0.3);
+}
+
+.hud-corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-color: #0a84ff;
+}
+
+.hud-corner-tl {
+  top: 0;
+  left: 0;
+  border-top: 2px solid;
+  border-left: 2px solid;
+}
+
+.hud-corner-tr {
+  top: 0;
+  right: 0;
+  border-top: 2px solid;
+  border-right: 2px solid;
+}
+
+.hud-corner-bl {
+  bottom: 0;
+  left: 0;
+  border-bottom: 2px solid;
+  border-left: 2px solid;
+}
+
+.hud-corner-br {
+  bottom: 0;
+  right: 0;
+  border-bottom: 2px solid;
+  border-right: 2px solid;
+}
+
+/* Jarvis UI Analytics-like grid */
+.jarvis-grid {
+  display: grid;
+  position: relative;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1px;
+}
+
+.jarvis-grid::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 20px,
+    rgba(10, 132, 255, 0.05) 20px,
+    rgba(10, 132, 255, 0.05) 21px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.jarvis-grid::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 20px,
+    rgba(10, 132, 255, 0.05) 20px,
+    rgba(10, 132, 255, 0.05) 21px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Navigation links - Modern Jarvis style */
+.nav-link-modern {
+  position: relative;
+  color: white;
+  transition: all 0.3s ease;
+  padding: 0.5rem 0.75rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 6px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.825rem;
+  letter-spacing: 0.5px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid transparent;
+  backdrop-filter: blur(4px);
+}
+
+.nav-link-modern:hover {
+  color: #0a84ff;
+  background-color: rgba(10, 132, 255, 0.1);
+  border-color: rgba(10, 132, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.mobile-nav-link {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 280px;
+  padding: 0.75rem 1rem;
+  font-family: 'Orbitron', sans-serif;
+  color: white;
+  font-weight: 500;
+  border-radius: 6px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(10, 132, 255, 0.15);
+  transition: all 0.3s ease;
+}
+
+.mobile-nav-link:hover {
+  color: #0a84ff;
+  background-color: rgba(10, 132, 255, 0.1);
+  border-color: rgba(10, 132, 255, 0.3);
+}
+
+/* Futuristic footer links */
+.footer-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  color: white;
+  font-size: 0.875rem;
+  border-radius: 0.25rem;
+  transition: all 0.3s ease;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(10, 132, 255, 0.1);
+  overflow: hidden;
+}
+
+.footer-link:hover {
+  color: #0a84ff;
+  border-color: rgba(10, 132, 255, 0.5);
+  background-color: rgba(10, 132, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.footer-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(10, 132, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.footer-link:hover::before {
+  left: 100%;
+}
+
+/* Terminal styling */
+.terminal-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(10, 132, 255, 0.3) rgba(0, 0, 0, 0.1);
+}
+
+.terminal-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.terminal-scroll::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.terminal-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(10, 132, 255, 0.3);
+  border-radius: 3px;
+}
+
+.terminal-scanning {
+  animation: terminalBlink 1.5s infinite;
+}
+
+@keyframes terminalBlink {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Fix for the footer in the overall layout */
+section {
+  position: relative;
+  z-index: 2;
+}
+
+footer {
+  position: relative;
+  z-index: 2;
+}
+
+/* Section padding adjustments */
+.section {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
