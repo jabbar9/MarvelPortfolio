@@ -25,6 +25,7 @@ import glsl from "vite-plugin-glsl";
 var __filename = fileURLToPath(import.meta.url);
 var __dirname = dirname(__filename);
 var vite_config_default = defineConfig({
+   base: `/MarvelPortfolio/`,
   plugins: [
     react(),
     runtimeErrorOverlay(),
@@ -39,7 +40,7 @@ var vite_config_default = defineConfig({
   },
   root: path.resolve(__dirname, "client"),
   build: {
-    outDir: path.resolve(__dirname, "dist/public"),
+    outDir: path.resolve(__dirname, "dist"),
     emptyOutDir: true
   },
   // Add support for large models and audio files
@@ -156,8 +157,12 @@ app.use((req, res, next) => {
   } else {
     serveStatic(app);
   }
-  const port = process.env.PORT || 3e3;
-  server.listen(port, () => {
-    log(`serving on port ${port}`);
-  });
+ const port = 5000;
+   server.listen({
+     port,
+     host: "0.0.0.0",
+     reusePort: true,
+   }, () => {
+     log(`serving on port ${port}`);
+   });
 })();
