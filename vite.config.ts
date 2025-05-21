@@ -9,7 +9,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export default defineConfig({
-  base: `https://github.com/jabbar9/MarvelPortfolio`,
+  base: `/MarvelPortfolio/`,
   plugins: [
     react(),
     runtimeErrorOverlay(),
