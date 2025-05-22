@@ -25,7 +25,7 @@ import glsl from "vite-plugin-glsl";
 var __filename = fileURLToPath(import.meta.url);
 var __dirname = dirname(__filename);
 var vite_config_default = defineConfig({
-   base: `/MarvelPortfolio/`,
+  base: `/MarvelPortfolio/`,
   plugins: [
     react(),
     runtimeErrorOverlay(),
@@ -158,11 +158,11 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
  const port = 5000;
-   server.listen({
-     port,
-     host: "0.0.0.0",
-     reusePort: true,
-   }, () => {
-     log(`serving on port ${port}`);
-   });
+  server.listen({
+    port,
+    host: "0.0.0.0",
+    reusePort: true,
+  }, () => {
+    log(`serving on port ${port}`);
+  });
 })();
